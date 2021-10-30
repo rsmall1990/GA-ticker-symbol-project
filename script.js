@@ -8,8 +8,8 @@ const $main = $("main");
 // Event Listeners
 
 // Functions
-function getdata(){
-    // get api data and assign it to to our api data variable
+const getdata = function fetchApiData() {
+    // fetch the api data and assign it to the apiData variable
     $.ajax(BASE_URL + "apikey=" + API_KEY)
     .then(function(data) {
         apiData = data;
@@ -19,7 +19,7 @@ function getdata(){
     });
 }
 
-function render(){
+const render = function displayDataInDom() {
     // transfer our api data to the DOM
     console.log(apiData)
 }
