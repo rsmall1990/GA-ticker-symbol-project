@@ -14,7 +14,7 @@ A simple ticker symbol lookup app
 ### WireFrame
 ![Wireframe](https://raw.githubusercontent.com/rsmall1990/GA-ticker-symbol-project/master/Screen%20Shot%202021-10-27%20at%208.06.04%20PM.png)
 
-![Schreenshot 2](https://raw.githubusercontent.com/rsmall1990/GA-ticker-symbol-project/master/8D7683B5-9776-41AE-B548-E886E2A7741B.jpeg)
+![Schreenshot 2](https://github.com/rsmall1990/GA-ticker-symbol-project/blob/master/liveAppScreenshot.jpg)
 ## Getting Started
 
 [Clicker here](https://ga-ticker-symbol-project.netlify.app/) to see the site live
