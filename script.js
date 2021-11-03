@@ -8,6 +8,8 @@ const API_KEY = "LXIO70U1WOW3YKTB";
 // Variables
 let quoteData;
 let compData;
+let myChart = document.getElementById("myChart").getContext("2d");
+
 
 // Cached Element References
 const $form = $('form');
@@ -26,7 +28,6 @@ function submitHandler(evt) {
     $.ajax(BASE_URL + "GLOBAL_QUOTE&symbol=" + ticker + "&apikey=" + API_KEY)
     .then(function(data) {
         quoteData = data;
-        console.log(quoteData)
         displayDataInDom();
     }, function (error) {
         console.log("error")
@@ -39,6 +40,20 @@ function submitHandler(evt) {
     }, function (error) {
         console.log("error")
     });
+    $.ajax(BASE_URL + "TIME_SERIES_MONTHLY_ADJUSTED&symbol=" + ticker + "&apikey=" + API_KEY)
+    .then(function(data) {
+        timeSeriesData = data;
+        console.log(timeSeriesData)
+        // createChartData()
+        displayDataInDom();
+    }, function (error) {
+        console.log("error")
+    });
+}
+
+function createChartData(){
+    // for each element in timeSeriesData[1] push element name to labels[]
+    // for each element in time series, add to data[]
 }
 
 function displayDataInDom() {
@@ -54,5 +69,17 @@ function displayDataInDom() {
         `
         );
     $input.val("");
+    let lineChart = new Chart(myChart, {
+        type: "line",
+        data: {
+            labels:["monday","tuesday","wednesday","thursday","friday"],
+            datasets:[{
+                label: "Price",
+                data: ["10","11","12","9","11"],
+                borderColor: "blue",
+            }]
+        },
+        options:{}
+    });
 }
 });
