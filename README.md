@@ -17,7 +17,7 @@ A simple ticker symbol lookup app
 ![Schreenshot 2](https://github.com/rsmall1990/GA-ticker-symbol-project/blob/master/liveAppScreenshot.jpg)
 ## Getting Started
 
-[Clicker here](https://ga-ticker-symbol-project.netlify.app/) to see the site live
+[Click here](https://ga-ticker-symbol-project.netlify.app/) to see the site live
 
 ## Future Enhancements
 - Create chart with recent price data
