@@ -46,6 +46,9 @@ function submitHandler(evt) {
         console.log(timeSeriesData)
         // createChartData()
         displayDataInDom();
+        // for (const [key, value] of Object.entries(timeSeriesData["Monthly Adjusted Time Series"])) {
+        //     console.log(`Key => ${key} | Value => ${value}`)
+        // }
     }, function (error) {
         console.log("error")
     });
@@ -61,7 +64,7 @@ function displayDataInDom() {
     // have to use bracket notation becuase of all the spaces in the object names
     $main.html(`
         <p id="ticker"><b>Ticker Symbol:</b> ${quoteData["Global Quote"]["01. symbol"]}</p>
-        <p id="name"><b>Company Description:</b> ${compData["Name"]}</p>
+        <p id="name"><b>Company Name:</b> ${compData["Name"]}</p>
         <p id="price"><b>Last Price:</b> ${quoteData["Global Quote"]["05. price"]}</p>
         <p id="volume"><b>Volume:</b> ${quoteData["Global Quote"]["06. volume"]}</p>
         <p id="change"><b>Percent Change:</b> ${quoteData["Global Quote"]["10. change percent"]}</p>
@@ -72,10 +75,11 @@ function displayDataInDom() {
     let lineChart = new Chart(myChart, {
         type: "line",
         data: {
-            labels:["monday","tuesday","wednesday","thursday","friday"],
+            labels: Object.keys(timeSeriesData["Monthly Adjusted Time Series"]),
             datasets:[{
                 label: "Price",
-                data: ["10","11","12","9","11"],
+                data: ["1"],
+                // data: Object.values(timeSeriesData["Monthly Adjusted Time Series"]["5. adjusted close"]),
                 borderColor: "blue",
             }]
         },
