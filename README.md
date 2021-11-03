@@ -6,7 +6,7 @@ A simple ticker symbol lookup app
 
 - HTML5
 - CSS
-- JavaScript/jQuery
+- JavaScript/jQuery/Chart.js
 - Alpha Vantage API
 
 ## Screenshots
