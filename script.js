@@ -1,26 +1,47 @@
+// IIFE Immediately Invoked Function Expression
+$(function () {
+
 // Constants
 const BASE_URL = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=";
 const API_KEY = "LXIO70U1WOW3YKTB";
-// State Variables
+
+// Variables
 let apiData;
+
 // Cached Element References
-const $main = $("main");
-const $var = "FAS" // need input value to be dynamic
+const $form = $('form');
+const $input = $('input[type="text"]');
+const $main = $('main');
+
 // Event Listeners
+$form.on("submit", submitHandler);
+
 
 // Functions
-const getData = function fetchApiData() {
+function submitHandler(evt) {
+    evt.preventDefault();
+    const ticker = $input.val()
     // fetch the api data and assign it to the apiData variable
-    $.ajax(BASE_URL + $var + "&apikey=" + API_KEY)
+    $.ajax(BASE_URL + ticker + "&apikey=" + API_KEY)
     .then(function(data) {
         apiData = data;
-        render();
+        console.log(apiData)
+        displayDataInDom();
     }, function (error) {
         console.log("error")
     });
 }
 
-const render = function displayDataInDom() {
+function displayDataInDom() {
     // transfer our api data to the DOM
-    console.log(apiData)
+    // have to use bracket notation becuase of all the spaces in the object names
+    $main.html(`
+        <p id="ticker">Data for: ${apiData["Global Quote"]["01. symbol"]}</p>
+        <p id="price">Last Price: ${apiData["Global Quote"]["05. price"]}</p>
+        <p id="volume">Volume: ${apiData["Global Quote"]["06. volume"]}</p>
+        <p id="change">Percent Change: ${apiData["Global Quote"]["10. change percent"]}</p>
+        `
+        );
+    $input.val("");
 }
+});
