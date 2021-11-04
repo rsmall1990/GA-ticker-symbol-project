@@ -8,8 +8,9 @@ const API_KEY = "LXIO70U1WOW3YKTB";
 // Variables
 let quoteData;
 let compData;
+let timeSeriesData;
 let myChart = document.getElementById("myChart").getContext("2d");
-
+let priceData = [];
 
 // Cached Element References
 const $form = $('form');
@@ -35,7 +36,7 @@ function submitHandler(evt) {
     $.ajax(BASE_URL + "OVERVIEW&symbol=" + ticker + "&apikey=" + API_KEY)
     .then(function(data) {
         compData = data;
-        console.log(compData)
+        // console.log(compData)
         displayDataInDom();
     }, function (error) {
         console.log("error")
@@ -43,20 +44,23 @@ function submitHandler(evt) {
     $.ajax(BASE_URL + "TIME_SERIES_MONTHLY_ADJUSTED&symbol=" + ticker + "&apikey=" + API_KEY)
     .then(function(data) {
         timeSeriesData = data;
-        console.log(timeSeriesData)
-        // createChartData()
+        createPriceData();
+        createDates();
         displayDataInDom();
-        // for (const [key, value] of Object.entries(timeSeriesData["Monthly Adjusted Time Series"])) {
-        //     console.log(`Key => ${key} | Value => ${value}`)
-        // }
+        // console.log(timeSeriesData)
     }, function (error) {
         console.log("error")
     });
 }
 
-function createChartData(){
+function createPriceData(){
     // for each element in timeSeriesData[1] push element name to labels[]
     // for each element in time series, add to data[]
+    for (price in timeSeriesData["Monthly Adjusted Time Series"]){
+        priceData.push(timeSeriesData["Monthly Adjusted Time Series"][price]["5. adjusted close"])
+        // console.log(priceData);
+    }
+    // console.log(priceData)
 }
 
 function displayDataInDom() {
@@ -78,8 +82,7 @@ function displayDataInDom() {
             labels: Object.keys(timeSeriesData["Monthly Adjusted Time Series"]),
             datasets:[{
                 label: "Price",
-                data: ["1"],
-                // data: Object.values(timeSeriesData["Monthly Adjusted Time Series"]["5. adjusted close"]),
+                data: priceData,
                 borderColor: "blue",
             }]
         },
